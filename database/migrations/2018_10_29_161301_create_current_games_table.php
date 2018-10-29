@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTokensTable extends Migration
+class CreateCurrentGamesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,17 @@ class CreateTokensTable extends Migration
      */
     public function up()
     {
-        Schema::create('tokens', function (Blueprint $table) {
+        Schema::create('current_games', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('token', 255);
-            $table->unsignedInteger('expires_in');
+            $table->unsignedMediumInteger('bet');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')
                   ->references('id')->on('users')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+            $table->unsignedInteger('room_id');
+            $table->foreign('room_id')
+                  ->references('id')->on('rooms')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
             $table->timestamps();
@@ -33,6 +37,6 @@ class CreateTokensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tokens');
+        Schema::dropIfExists('current_games');
     }
 }

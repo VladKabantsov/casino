@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTokensTable extends Migration
+class CreateCompletedRoundsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateTokensTable extends Migration
      */
     public function up()
     {
-        Schema::create('tokens', function (Blueprint $table) {
+        Schema::create('completed_rounds', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('token', 255);
-            $table->unsignedInteger('expires_in');
+            $table->unsignedMediumInteger('win');
+            $table->string('chance');
+            $table->unsignedMediumInteger('bet');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')
                   ->references('id')->on('users')
@@ -33,6 +34,6 @@ class CreateTokensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tokens');
+        Schema::dropIfExists('completed_rounds');
     }
 }
