@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
-class AuthController extends Controller
+class AuthController extends BaseAuthController
 {
     /**
      * Redirect to O2Auth vk.com
@@ -20,8 +22,9 @@ class AuthController extends Controller
      * Handle information about auth user from vk provider
      */
     public function vkUser() {
-        $user = Socialite::driver('vkontakte')->user();
-        dd($user);
+        $data = Socialite::driver('vkontakte')->user();
+
+        return $this->callbackSocialNetworks($data);
     }
 
     /**
@@ -37,7 +40,10 @@ class AuthController extends Controller
      * Handle information about auth user from vk provider
      */
     public function okUser() {
-        $user = Socialite::driver('odnoklassniki')->user();
-        dd($user);
+        $data = Socialite::driver('odnoklassniki')->user();
+
+        return $this->callbackSocialNetworks($data);
     }
+
+
 }

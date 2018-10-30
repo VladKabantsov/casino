@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use http\Env\Request;
 
 class CompletedRoundController extends Controller
 {
-    //
+    public function index(Request $request)
+    {
+        $data = $request->validated();
+    }
 }

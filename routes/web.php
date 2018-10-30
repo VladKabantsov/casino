@@ -16,3 +16,14 @@ Route::get('/login/ok', 'AuthController@okAuth');
 
 Route::get('/login/vk/user', 'AuthController@vkUser');
 Route::get('/login/ok/user', 'AuthController@okAuth');
+
+Route::middleware(['social.auth'])->group(function () {
+
+    Route::resource('user', 'UserController');
+
+    Route::get('referral-users', 'UserController@getReferrals');
+
+    Route::get('wins', 'UserController@getWins');
+
+    Route::get('completed-rounds', 'CompletedRoundController@index');
+});

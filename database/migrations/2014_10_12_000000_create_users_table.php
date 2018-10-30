@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('screen_name', 50)->nullable();
             $table->string('photo', 255)->nullable();
             $table->unsignedBigInteger('vk_id')->nullable();
+            $table->unsignedBigInteger('ok_id')->nullable();
             $table->string('referal_reference', 255);
             $table->unsignedInteger('referal_id');
             $table->foreign('referal_id')

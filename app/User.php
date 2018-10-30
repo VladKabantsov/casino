@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -15,7 +13,30 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'screen_name', 'photo', 'vk_id', 'ok_id', 'referal_reference'
+        'first_name',
+        'last_name',
+        'screen_name',
+        'photo',
+        'vk_id',
+        'ok_id',
+        'referal_reference',
     ];
 
+    public function token()
+    {
+
+        return $this->hasOne('App/Token');
+    }
+
+    public function referralUsers()
+    {
+
+        return $this->hasMany('App/User');
+    }
+
+    public function completedRounds()
+    {
+
+        return $this->hasMany('App/CompletedRound');
+    }
 }
