@@ -13,7 +13,7 @@ class SortCompletedRounds extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class SortCompletedRounds extends FormRequest
     public function rules()
     {
         return [
-            //
+            'orderBy' => 'string|in:asc,desc',
+            'sortBy' => 'string|in:id,win,chance,bet',
+            'perPage' => 'required|numeric',
+            'page' => 'required|numeric',
+            'room_id' => 'required|exists:rooms,id'
         ];
     }
 }
