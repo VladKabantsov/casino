@@ -19,24 +19,24 @@ class User extends Authenticatable
         'photo',
         'vk_id',
         'ok_id',
-        'referal_reference',
+        'referral_reference',
     ];
 
     public function token()
     {
 
-        return $this->hasOne('App/Token');
+        return $this->hasOne('App\Token');
     }
 
     public function referralUsers()
     {
 
-        return $this->hasMany('App/User');
+        return $this->hasMany('App\User');
     }
 
     public function completedRounds()
     {
 
-        return $this->hasMany('App/CompletedRound');
+        return $this->hasMany('App\CompletedRound');
     }
 }

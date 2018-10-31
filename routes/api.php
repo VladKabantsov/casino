@@ -16,4 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware(['social.auth'])->group(function () {
 
     Route::resource('user', 'UserController');
+
+    Route::get('referral-users', 'UserController@getReferrals');
+
+    Route::get('wins', 'UserController@getWins');
+
+    Route::get('completed-rounds', 'CompletedRoundController@index');
 });

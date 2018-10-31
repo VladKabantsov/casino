@@ -10,9 +10,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
-        $token = $request->bearerToken();
-
-        return $token->user()->first();
+        return $request->user->load('token');
     }
 
     public function destroy(User $user)
@@ -30,19 +28,17 @@ class UserController extends Controller
     public function getReferrals(Request $request)
     {
 
-        $token = $request->bearerToken();
-
-        return $token->user()
-                     ->first()
-                     ->referralUsers()
-                     ->get();
+        return $request->user
+                       ->referralUsers()
+                       ->get();
     }
 
     public function getWins(Request $request)
     {
 
-        return $request->user->completedRounds()
-                             ->get();
+        return $request->user
+                       ->completedRounds()
+                       ->get();
     }
 
 }

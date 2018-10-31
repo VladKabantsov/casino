@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('vk_id')->nullable();
             $table->unsignedBigInteger('ok_id')->nullable();
             $table->string('referral_reference', 255);
-            $table->unsignedInteger('referral_id');
+            $table->unsignedInteger('referral_id')->nullable();
             $table->foreign('referral_id')
                   ->references('id')->on('users')
                   ->onDelete('cascade')
@@ -41,7 +41,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function ($table) {
-            $table->dropForeign('posts_user_id_foreign');
+            $table->dropForeign('users_referral_id_foreign');
         });
         Schema::dropIfExists('users');
     }

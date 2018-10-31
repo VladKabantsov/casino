@@ -23,6 +23,7 @@ class AuthController extends BaseAuthController
      */
     public function vkUser() {
         $data = Socialite::driver('vkontakte')->user();
+        $data->user[ 'vk_id' ] = $data->user[ 'id' ];
 
         return $this->callbackSocialNetworks($data);
     }
@@ -41,6 +42,7 @@ class AuthController extends BaseAuthController
      */
     public function okUser() {
         $data = Socialite::driver('odnoklassniki')->user();
+        dd($data);
 
         return $this->callbackSocialNetworks($data);
     }

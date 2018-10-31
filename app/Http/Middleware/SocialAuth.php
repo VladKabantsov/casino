@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Token;
 use Carbon\Carbon;
 use Closure;
+use function MongoDB\BSON\toJSON;
 
 class SocialAuth
 {
@@ -18,15 +19,15 @@ class SocialAuth
     public function handle($request, Closure $next)
     {
         $token = $request->bearerToken();
-        $tokenFromDB = Token::where('token', $token)->first();
+        $tokenFromDB = Token::where('access_token', $token)->first();
 
         if (!$tokenFromDB) {
 
             return response('Unauthorized', 401);
         }
 
-        $currentDate = Carbon::now($tokenFromDB->created_at);
-        $expireAt = Carbon::createFromDate($tokenFromDB->created_at)->addSeconds($tokenFromDB->expires_in);
+        $currentDate = Carbon::parse($tokenFromDB->created_at);
+        $expireAt = clone Carbon::parse($currentDate)->addSeconds($tokenFromDB->expires_in);
 
         if (!$token || ($currentDate > $expireAt)) {
 
